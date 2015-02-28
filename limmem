@@ -1,0 +1,12 @@
+#!/usr/bin/env fish
+
+function lm -d 'Ulimits the max resident and virtual memory of a process'
+         if test (count $argv) -ge 1
+            ulimit -m (math "512 * 1024")
+            ulimit -v (math "512 * 1024")
+
+            eval "exec $argv"
+         end
+end
+
+lm $argv

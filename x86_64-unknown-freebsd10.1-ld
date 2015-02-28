@@ -1,0 +1,3 @@
+#!/usr/bin/env fish
+
+lld -flavor gnu -target x86_64-unknown-freebsd10.1 $argv

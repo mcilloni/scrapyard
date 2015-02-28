@@ -1,0 +1,50 @@
+#!/usr/bin/env fish
+
+function usage
+     echo "Usage: gcc-alias [on|off]"
+end
+
+if test (count $argv) -ne 1
+   usage
+   exit 1
+end
+
+
+switch $argv
+       case on
+       	    if test -e /usr/bin/gcc-real
+	       echo 'Already on'
+	    else
+	       echo 'Aliasing gcc'
+	       mv -v /usr/bin/gcc /usr/bin/gcc-real
+      	       and mv -v /usr/bin/g++ /usr/bin/g++-real
+	       and mv -v /usr/bin/cc /usr/bin/cc-real
+      	       and mv -v /usr/bin/c++ /usr/bin/c++-real
+               and mv -v /usr/bin/cpp /usr/bin/cpp-real
+	       
+	       and ln -sv /usr/bin/clang /usr/bin/gcc
+       	       and ln -sv /usr/bin/clang++ /usr/bin/g++
+	       and ln -sv /usr/bin/clang /usr/bin/cc
+       	       and ln -sv /usr/bin/clang++ /usr/bin/c++
+	       and ln -sv /usr/bin/clang /usr/bin/cpp
+	    end
+	case off
+	     if test -e /usr/bin/gcc-real
+	        echo 'Restoring gcc'
+	     	rm -v /usr/bin/gcc
+		and rm -v /usr/bin/g++
+	     	and rm -v /usr/bin/cc
+		and rm -v /usr/bin/c++
+		and rm -v /usr/bin/cpp		
+
+		and mv -v /usr/bin/gcc-real /usr/bin/gcc
+		and mv -v /usr/bin/g++-real /usr/bin/g++
+		and mv -v /usr/bin/cc-real /usr/bin/cc
+		and mv -v /usr/bin/c++-real /usr/bin/c++
+		and mv -v /usr/bin/cpp-real /usr/bin/cpp		
+	     else
+		echo 'Already off'
+	     end
+	case '*'
+		usage
+end

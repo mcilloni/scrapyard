@@ -1,0 +1,4 @@
+#!/usr/bin/env fish
+
+cd /home/marco/.wine/drive_c/users/Public/FAForever/bin
+primusrun wine ./ForgedAlliance.exe
